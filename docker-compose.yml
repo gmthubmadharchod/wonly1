@@ -1,0 +1,29 @@
+services:
+  mongo:
+    image: mongo:8
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+
+  sst-cloud:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongo
+
+  sst-bot:
+    build:
+      context: .
+      dockerfile: bot.Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    depends_on:
+      - mongo
+
+volumes:
+  mongo_data:

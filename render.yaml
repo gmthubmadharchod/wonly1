@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: sst-cloud
+    env: docker
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /
+    autoDeploy: true
